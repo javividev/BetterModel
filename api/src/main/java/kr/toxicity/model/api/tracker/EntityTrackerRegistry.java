@@ -301,9 +301,11 @@ public final class EntityTrackerRegistry {
     }
 
     private void initialLoad() {
-        if (BetterModel.platform().adapter().isRegionSafe() && loaded.compareAndSet(false, true)) {
-            load();
-            refreshPlayer();
+        if (loaded.compareAndSet(false, true)) {
+            entity.platform().task(() -> {
+                load();
+                refreshPlayer();
+            });
         }
     }
 
