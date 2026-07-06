@@ -102,3 +102,7 @@ packet-bundling-size: 16
 # Enables strict loading mode. If true, the plugin will fail to load models with unsupported features.
 # If false, it will attempt to load them by ignoring unsupported parts, which may cause visual issues.
 enable-strict-loading: false
+
+# If enabled, BetterModel will hook into MythicMobs when it is present, adding model-related
+# mechanics, conditions, and targeters to it. Disable this if you don't want this integration.
+hook-mythicmobs: true

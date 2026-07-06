@@ -11,6 +11,7 @@ import kr.toxicity.model.bukkit.compatibility.Compatibility
 import kr.toxicity.model.bukkit.compatibility.citizens.command.AnimateCommand
 import kr.toxicity.model.bukkit.compatibility.citizens.command.LimbCommand
 import kr.toxicity.model.bukkit.compatibility.citizens.command.ModelCommand
+import kr.toxicity.model.bukkit.compatibility.citizens.command.ReapplyModelsCommand
 import kr.toxicity.model.bukkit.compatibility.citizens.trait.ModelTrait
 import net.citizensnpcs.api.CitizensAPI
 import net.citizensnpcs.api.trait.TraitInfo
@@ -23,6 +24,7 @@ class CitizensCompatibility : Compatibility {
             register(ModelCommand::class.java)
             register(AnimateCommand::class.java)
             register(LimbCommand::class.java)
+            register(ReapplyModelsCommand::class.java)
         }
     }
 }

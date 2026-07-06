@@ -225,6 +225,14 @@ public interface BetterModelConfig {
     boolean enableStrictLoading();
 
     /**
+     * Checks if BetterModel should hook into MythicMobs when it is present.
+     *
+     * @return true to hook, false otherwise
+     * @since 1.15.2
+     */
+    boolean hookMythicMobs();
+
+    /**
      * Enumerates the types of resource pack generation.
      *
      * @since 1.15.2

@@ -16,6 +16,7 @@ import net.citizensnpcs.api.util.DataKey
 
 @TraitName("model")
 class ModelTrait : Trait("model") {
+    private var modelName: String? = null
     private var _renderer: ModelRenderer? = null
     var renderer
         get() = _renderer
@@ -24,10 +25,12 @@ class ModelTrait : Trait("model") {
                 value?.create(it.wrap()) ?: BetterModel.registryOrNull(it.uniqueId)?.close()
             }
             _renderer = value
+            modelName = value?.name()
         }
 
     override fun load(key: DataKey) {
-        key.getString("")?.let {
+        modelName = key.getString("")?.takeIf { it.isNotEmpty() }
+        modelName?.let {
             BetterModel.modelOrNull(it)?.let { model ->
                 renderer = model
             }
@@ -35,9 +38,7 @@ class ModelTrait : Trait("model") {
     }
 
     override fun save(key: DataKey) {
-        npc?.entity?.uniqueId?.let { uuid ->
-            key.setString("", BetterModel.registryOrNull(uuid)?.first()?.name())
-        }
+        key.setString("", modelName)
     }
 
     override fun onSpawn() {
@@ -46,6 +47,20 @@ class ModelTrait : Trait("model") {
                 renderer?.create(it.wrap())
             }
         }
+    }
+
+    /**
+     * Reapplies the assigned model to this NPC's entity, re-resolving it by name if it
+     * failed to resolve earlier (e.g. BetterModel's assets were not loaded yet when
+     * Citizens deserialized this trait).
+     *
+     * @return true if a model is assigned and was (re)applied to the entity
+     */
+    fun reapply(): Boolean {
+        val name = modelName ?: return false
+        val model = _renderer ?: BetterModel.modelOrNull(name)?.also { _renderer = it } ?: return false
+        npc?.entity?.let { model.create(it.wrap()) }
+        return true
     }
 
     override fun onCopy() {

@@ -17,6 +17,7 @@ import kr.toxicity.model.bukkit.purpur.PurpurHook
 import kr.toxicity.model.bukkit.util.registerListener
 import kr.toxicity.model.manager.GlobalManager
 import kr.toxicity.model.manager.ReloadPipeline
+import kr.toxicity.model.util.CONFIG
 import kr.toxicity.model.util.info
 import kr.toxicity.model.util.toComponent
 import net.kyori.adventure.text.format.NamedTextColor
@@ -44,6 +45,7 @@ object CompatibilityManager : GlobalManager {
 
     override fun start() {
         if (BetterModelBukkit.IS_PURPUR) PurpurHook.start()
+        if (!CONFIG.hookMythicMobs()) compatibilities.remove("MythicMobs")
         Bukkit.getPluginManager().run {
             compatibilities.entries.removeIf { (k, v) ->
                 if (isPluginEnabled(k)) {

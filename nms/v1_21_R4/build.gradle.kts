@@ -1,3 +1,6 @@
+import io.papermc.paperweight.tasks.JavaLauncherTaskBase
+import org.gradle.jvm.toolchain.JavaLanguageVersion
+import org.gradle.jvm.toolchain.JavaToolchainService
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -14,5 +17,12 @@ tasks {
     }
     compileKotlin {
         compilerOptions.jvmTarget = JvmTarget.JVM_21
+    }
+    named("paperweightUserdevSetup") {
+        (this as JavaLauncherTaskBase).launcher.set(
+            project.extensions.getByType(JavaToolchainService::class.java).launcherFor {
+                languageVersion.set(JavaLanguageVersion.of(21))
+            }
+        )
     }
 }

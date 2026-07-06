@@ -74,6 +74,7 @@ class BetterModelConfigImpl(yaml: ConfigurationSection) : BetterModelConfig {
     private val playerHideDelay = yaml.getLong("player-hide-delay", 3L).coerceAtLeast(1L)
     private val packetBundlingSize = yaml.getInt("packet-bundling-size", 16)
     private val enableStrictLoading = yaml.getBoolean("enable-strict-loading")
+    private val hookMythicMobs = yaml.getBoolean("hook-mythicmobs", true)
 
     override fun debug(): DebugConfig = debug
     override fun indicator(): IndicatorConfig = indicator
@@ -99,4 +100,5 @@ class BetterModelConfigImpl(yaml: ConfigurationSection) : BetterModelConfig {
     override fun playerHideDelay(): Long = playerHideDelay
     override fun packetBundlingSize(): Int = packetBundlingSize
     override fun enableStrictLoading(): Boolean = enableStrictLoading
+    override fun hookMythicMobs(): Boolean = hookMythicMobs
 }

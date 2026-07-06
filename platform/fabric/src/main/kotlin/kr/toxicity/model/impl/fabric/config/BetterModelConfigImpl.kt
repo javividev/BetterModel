@@ -107,5 +107,6 @@ class BetterModelConfigImpl(yaml: ConfigurationNode) : BetterModelConfig {
     override fun playerHideDelay(): Long = playerHideDelay
     override fun packetBundlingSize(): Int = packetBundlingSize
     override fun enableStrictLoading(): Boolean = enableStrictLoading
+    override fun hookMythicMobs(): Boolean = true
 }
 
